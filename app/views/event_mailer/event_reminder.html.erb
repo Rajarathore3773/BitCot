@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+</head>
+<body>
+  <h1>Event Reminder</h1>
+  <p>Hello <%= @event.user.name %>,</p>
+  <p>This is a friendly reminder about your upcoming event:</p>
+  <p><strong>Event Name:</strong> <%= @event.name %></p>
+  <p><strong>Event Date:</strong> <%= @event.start_date %></p>
+  <p><strong>Event Location:</strong> <%= @event.city %></p>
+  <p>We hope to see you there!</p>
+  <p>Best regards,</p>
+  <p>Your Event Team</p>
+</body>
+</html>

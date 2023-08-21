@@ -1,0 +1,18 @@
+<!-- app/views/events/list_all_events.html.erb -->
+<h1>All Events and Creators</h1>
+
+<% @events.each do |event| %>
+  <div class="event">
+    <h2><%= event.name %></h2>
+    <p><strong>Description:</strong> <%= event.description %></p>
+    <p><strong>Start Date:</strong> <%= event.start_date %></p>
+    <p><strong>End Date:</strong> <%= event.end_date %></p>
+    <p><strong>City:</strong> <%= event.city %></p>
+
+    <p><strong>Created by:</strong> <%= event.user.name %> (<%= event.user.email %>)</p>
+  </div>
+<% end %>
+
+<%= link_to "Back to Home", root_path, class: "dropdown-item" %>
+<%= link_to "Back to Events", events_path %>
+

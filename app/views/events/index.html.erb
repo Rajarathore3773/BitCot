@@ -1,0 +1,70 @@
+<div>
+  <%= flash[:notice]%>
+      
+ <h2> Listing Events </h2>
+
+
+<div>
+  <ul>
+    <% if user_signed_in? %> Logged in as <strong><%= current_user.email %></strong>
+
+      <%= form_tag search_events_path, class: "dropdown-item" do %>
+        <%= text_field_tag :query, params[:query], placeholder: 'Search...' %>
+        <%= submit_tag 'Search' %>
+      <% end %>
+
+     <!-- <li><%= link_to "Search_events", search_events_path, class: "dropdown-item"%></li> -->
+      <li><%= link_to "Sign Out", destroy_user_session_path, data: { "turbo-method": :delete },:class => 'navbar-link' %></li>
+      <li><%= link_to "my_events", list_my_created_events_path, class: "dropdown-item"%></li>
+    <% else %>
+
+        <li><%= link_to 'Sign In', new_user_session_path,:class => 'navbar-link' %></li>
+        <li><%= link_to 'Sign Up', new_user_registration_path, :class => 'navbar-link' %></li>
+    <% end %>
+</ul>
+ </div>
+
+  <div>
+    <li><%= link_to "Create New Event",new_event_path, class: "dropdown-item"%></li>
+    <li><%= link_to "List All Users", users_path, class: "dropdown-item"%></li>
+  </div>
+
+  
+<table>
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>City</th>
+            <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @events.each do |event| %>
+          <tr>
+            <td><%= event.name %></td>
+            <td><%= event.description %></td>
+            <td><%= event.start_date %></td>
+            <td><%= event.end_date %></td>
+            <td><%= event.city %></td>
+
+            <td>
+              <div>
+                <ul>
+                <li><%= link_to "View", event_path(event) %></li>
+
+                  <% if current_user == event.user %>
+                  <li><%= link_to "Edit", edit_event_path(event) %></li>
+                  <li><%= link_to "Delete", event_path(event), method: :delete, data: { confirm: "Are you sure you want to delete this event?" } %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+</div>

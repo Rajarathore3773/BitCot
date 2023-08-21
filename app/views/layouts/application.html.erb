@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bitcot</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+  <!-- Include jQuery and jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+  <!-- Other head contents... -->
+
+  </head>
+
+  <body>
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+         <% if user_signed_in?%>
+         <h3> <strong> <%= current_user.email%> </strong></h3>
+         <%#= link_to '', edit_user_registration_path	%>
+       <%end%>
+
+    <%= yield %>
+  </body>
+</html>

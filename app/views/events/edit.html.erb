@@ -1,0 +1,24 @@
+<h1>Edit Event</h1>
+
+<%= form_with(model: @event, local: true) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  
+  <!-- Include other form fields here -->
+  
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+  
+  <%= form.label :start_date %>
+  <%= form.datetime_field :start_date %>
+  
+  <%= form.label :end_date %>
+  <%= form.datetime_field :end_date %>
+  
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+  
+  <%= form.submit "Update Event" %>
+<% end %>
+
+<%= link_to "Back to Event", event_path(@event) %>
