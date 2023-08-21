@@ -69,37 +69,16 @@ class EventsController < ApplicationController
     @events = Event.includes(:user)
   end
 # create routes for this events and vivew
-#debugger
   def search_events
     query = params[:query]
     @events = Event.includes(:user)
-                  .where('name LIKE ?', "%#{query}%")
-                  # .or(User.where('users.name LIKE ?', "%#{query}%"))
-                  # .or(User.where('users.email LIKE ?', "%#{query}%"))
-                  # .or(User.where('users.city LIKE ?', "%#{query}%"))
+                  .where('events.name ILIKE ?', "%#{query}%")
+                  .or(User.where('users.name ILIKE ?', "%#{query}%"))
+                  .or(User.where('users.email ILIKE ?', "%#{query}%"))
+                  .or(User.where('users.city ILIKE ?', "%#{query}%"))
       
     render @events
   end
-
-
-
-  #debugger
-  # def search_events
-  #   query = params[:query]
-    
-  #   if query.present?
-  #     query = query.downcase
-
-  #     @events = Event.includes(:user)
-  #                   .where('LOWER(events.name) LIKE ?', "%#{query}%")
-  #                   .or(User.where('LOWER(users.name) LIKE ?', "%#{query}%"))
-  #                   .or(User.where('LOWER(users.email) LIKE ?', "%#{query}%"))
-  #                   .or(User.where('LOWER(users.city) LIKE ?', "%#{query}%"))
-
-  #     render @events
-    
-  #   end
-  # end
   
   private
 
