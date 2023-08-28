@@ -1,0 +1,21 @@
+<div>
+  <!-- ... event details ... -->
+</div>
+
+<div>
+  <!-- Display existing comments -->
+  <% @event.comments.each do |comment| %>
+    <div class="comment">
+      <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+     <% if comment.image.attached? %>
+        <%= image_tag comment.image %>
+      <% end %> 
+    </div>
+  <% end %>
+</div>
+
+<div>
+  <!-- Comment form -->
+  <%= render 'comments/form', event: @event %>
+</div>
+

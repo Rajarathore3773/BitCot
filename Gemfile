@@ -50,6 +50,9 @@ gem "faker", "~> 3.2"
 gem "sassc-rails"
 gem 'ransack'
 
+gem 'carrierwave', '~> 1.0'
+
+
 
 
 

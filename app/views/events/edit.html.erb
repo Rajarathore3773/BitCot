@@ -2,21 +2,24 @@
 
 <%= form_with(model: @event, local: true) do |form| %>
   <%= form.label :name %>
-  <%= form.text_field :name %>
+  <%= form.text_field :name %><br><br>
     
   <%= form.label :description %>
-  <%= form.text_area :description %>
+  <%= form.text_area :description %><br><br>
   
   <%= form.label :start_date %>
-  <%= form.datetime_field :start_date %>
+  <%= form.datetime_field :start_date %><br><br>
   
   <%= form.label :end_date %>
-  <%= form.datetime_field :end_date %>
+  <%= form.datetime_field :end_date %><br><br>
   
   <%= form.label :city %>
-  <%= form.text_field :city %>
+  <%= form.text_field :city %><br><br>
+
+  <%= form.label :image %>
+   <%= form.file_field :image %><br><br>
   
   <%= form.submit "Update Event" %>
-<% end %>
+<% end %><br>
 
 <%= link_to "Back to Event", event_path(@event) %>

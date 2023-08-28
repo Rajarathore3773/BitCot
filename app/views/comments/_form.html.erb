@@ -1,0 +1,5 @@
+<%= form_for([@event, @event.comments.build]) do |f| %>
+  <%= f.text_area :content, placeholder: 'Add a comment...' %><br>
+  <%= f.file_field :image %><br><br>
+  <%= f.submit 'Post Comment' %>
+<% end %>

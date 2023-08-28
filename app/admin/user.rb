@@ -24,6 +24,7 @@ ActiveAdmin.register User do
       f.input :name
       f.input :email
       f.input :role
+      f.input :phone_number
     end
     f.actions
   end
@@ -35,6 +36,7 @@ ActiveAdmin.register User do
       row :events_count do |user|
         user&.events&.count
       end
+
     end
 
     panel 'Events' do

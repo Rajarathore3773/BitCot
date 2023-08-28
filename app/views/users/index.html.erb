@@ -1,3 +1,4 @@
+<!--
 <h1>All Users</h1>
 
 <% @users.each do |user| %>
@@ -5,7 +6,40 @@
       Name: <%= user.name %>, 
       Email: <%= user.email %>,
       Phone_number: <%= user.phone_number %>
+      
    </p>
 <% end %>
 
 <%#= link_to "Back to Home", root_path, class: "dropdown-item" %>
+ -->
+
+ <% #if current_user && current_user.admin? %>
+  <h1>All Users and Corresponding Events !!</h1>
+
+  <% @users.each do |user| %>
+    <h2>User: <%= user.name %></h2>
+    <p>
+      Email: <%= user.email %>,
+      Phone number: <%= user.phone_number %>
+    </p>
+
+    <h3>Events:</h3>
+    <ul>
+      <% user.events.each do |event| %>
+        <li>
+          Event Name: <%= event.name %><br>
+          Event Location: <%= event.city %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% #else %>
+  <p>You do not have the necessary privileges to view this page.</p>
+<% #end %>
+
+
+
+
+
+
+

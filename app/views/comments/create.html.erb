@@ -1,0 +1,12 @@
+<% if @comment.present? %>
+  <div class="comment">
+    <p><strong><%= @comment.user.name %>:</strong> <%= @comment.content %></p>
+   <% if @comment.image.attached? %>
+      <%= image_tag @comment.image %>
+    <% end %> 
+  </div>
+<% else %>
+  <p>Failed to create comment.</p>
+<% end %>
+
+

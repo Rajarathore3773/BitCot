@@ -2,6 +2,8 @@ class EventsController < ApplicationController
   # before_action :authenticate_user!, except: [:index, :show]
 
   def index
+    @active_events = Event.active
+    @archived_events = Event.archived
     if user_signed_in?
       @events = Event.all#current_user.events
     else
@@ -80,9 +82,21 @@ class EventsController < ApplicationController
     render @events
   end
   
+  def archive
+    @event = Event.find(params[:id])
+    @event.update(archived: true)
+    redirect_to @event, notice: 'Event archived successfully.'
+  end
+
+  def unarchive
+    @event = Event.find(params[:id])
+    @event.update(archived: false)
+    redirect_to @event, notice: 'Event unarchived successfully.'
+  end
+
   private
 
   def event_params
-    params.require(:event).permit(:name, :description, :start_date, :end_date, :city,:user_id)
+    params.require(:event).permit(:image,:name, :description, :start_date, :end_date, :city,:user_id)
   end  
 end

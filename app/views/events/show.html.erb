@@ -1,27 +1,67 @@
 <h1><%= @event.name %></h1>
+<!-- Using list of archive & unarchive events -->
+<% if current_user == @event.user %>
+  <% if @event.archived %>
+    <%= button_to 'Unarchive', unarchive_event_path(@event), method: :post %>
+  <% else %>
+    <%= button_to 'Archive', archive_event_path(@event), method: :post %>
+  <% end %>
+<% end %><br>
 
-<p><strong>Description:</strong> <%= @event.description %></p>
-<p><strong>Start Date:</strong> <%= @event.start_date %></p>
-<p><strong>End Date:</strong> <%= @event.end_date %></p>
-<p><strong>City:</strong> <%= @event.city %></p>
+<%if @event.present?%>
+<!-- This line add for show carirerwave image upload gem-->
+  <%= image_tag(@event.image.url,size: "150x150",alt: 'Image') if @event.image? %>
 
+  <p><strong>Description:</strong> <%= @event.description %></p>
+  <p><strong>Start Date:</strong> <%= @event.start_date %></p>
+  <p><strong>End Date:</strong> <%= @event.end_date %></p>
+  <p><strong>City:</strong> <%= @event.city %></p>
+  <p><strong>Created by:</strong> <%= @event.user.name %> (<%= @event.user.email %>)</p>
+  <p><strong>Comments:</strong></p>
+  <ul>
+    <% @event.comments.each do |comment| %>
+      <li><%= comment.content %></li>
+      <% if comment.image.attached? %>
+          <%#= image_tag comment.image %>
+          <%= image_tag comment.image, size: "100x100" %> 
+        <% end %>
+    <% end %>
+  </ul>
+
+
+
+
+  <%if current_user != @event.user%>
+  <h2>Add a comment:</h2>
+  <%= render 'comments/form' %>
+
+  <p><%= @event.likes.count %> <%= (@event.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+  <p><%= @event.dislikes.count %> <%= (@event.dislikes.count) == 1 ? 'dislike' : 'dislikes'%></p>
+  <%= button_to 'Like', event_likes_path(@event), method: :post %><br>
+  <%= button_to 'Dislike', event_dislike_path(@event), method: :delete %>
+  <%end%>
+<%end%>
+
+
+<!-- Showing current sign user details-->
 <% if user_signed_in? %>
   <h2>Current User Details</h2>
   <p><strong>Name:</strong> <%= current_user.name %></p>
   <p><strong>Email:</strong> <%= current_user.email %></p>
   <p><strong>Phone Number:</strong> <%= current_user.phone_number %></p>
-<% end %>
+<% end %> 
+
 
 <% if user_signed_in? && current_user == @event.user %>
   <%= link_to "Edit", edit_event_path(@event) %>
   <%= form_for @event, url: event_path(@event), method: :delete, data: { confirm: "Are you sure?" } do |form| %>
     <%= form.submit "Delete" %>
   <% end %>
-<% end %>
+<% end %><br>
+
 
 <%= link_to "Back to Events", events_path %>
 
 
 <%= link_to "List All Events and Creators", list_all_events_path, class: "navbar-link", data: { turbolinks: false } %>
-
 

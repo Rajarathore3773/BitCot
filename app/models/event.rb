@@ -4,6 +4,9 @@ class Event < ApplicationRecord
   validate :end_date_after_start_date
   
   belongs_to :user, class_name: 'User'
+  has_many :comments
+  has_many :likes
+  has_many :dislikes
 
   after_create :set_email_reminder
 
@@ -24,4 +27,11 @@ class Event < ApplicationRecord
     return if start_date.blank? || end_date.blank?
     errors.add(:end_date, "must be after start date") if end_date < start_date
   end
+
+  scope :archived, -> { where(archived: true) }
+  scope :active, -> { where(archived: false) }
+  
+
+  mount_uploader :image, ImageUploader
+
 end

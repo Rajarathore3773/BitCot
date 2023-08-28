@@ -3,7 +3,20 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users
-  resources :events
+  
+  resources :events do
+    member do
+      post :archive
+      post :unarchive
+   end
+    resources :likes, only: [:create, :destroy]
+    resources :dislikes, only: [:create, :destroy]
+    resources :comments, only: [:create, :show, :destroy]
+  end
+
+  #get "/events/:id/comments" , to: "comments#show"
+
+  
   #root  "home#index"
   root  'events#index'
 
